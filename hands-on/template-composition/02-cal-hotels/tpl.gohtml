@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<!-- Did this template without cheating -->
+{{range .}}
+    {{.Region}}<br>
+    {{range .Hotels}}<br>
+        {{.Name}}<br>
+        {{.Street}}<br>
+        {{.City}}<br>
+        {{.Zip}}<br>
+    {{end}}
+
+{{end}}
+
+</body>
+</html>
