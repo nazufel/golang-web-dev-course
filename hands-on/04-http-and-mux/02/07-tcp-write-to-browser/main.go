@@ -49,7 +49,7 @@ func serve(c net.Conn) {
 		fmt.Println(ln)
 
 		if i == 0 {
-			// split the data string fields at the point of white space and assign to xs
+			// split the data string fields at the point of white space and assign to xs as slice of strings
 			xs := strings.Fields(ln)
 			// first string field is the request method
 			rMethod = xs[0]
