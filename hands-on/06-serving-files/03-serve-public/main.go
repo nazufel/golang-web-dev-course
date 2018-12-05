@@ -6,8 +6,8 @@ import (
 
 func main() {
 	fs := http.FileServer(http.Dir("public"))
+	// use the http.FileServer for anything after "/pics/"
 	http.Handle("/pic/", fs)
-	//http.HandleFunc("/", dogs)
 	http.ListenAndServe(":8080", nil)
 }
 

@@ -22,6 +22,7 @@ func main() {
 	// Step 4: requests to the "/" route runs the "dogs" func
 	http.HandleFunc("/", dogs)
 	// Step 6: index.gohtml template made calls to "/resources/", which then served up all files in the public dir.
+	// the root is "/resources/" in the project but StripPrefix removes that and services everything from "public"
 	http.Handle("/resources/", http.StripPrefix("/resources", http.FileServer(http.Dir("public"))))
 	// Step 7: start the server
 	http.ListenAndServe(":8080", nil)
