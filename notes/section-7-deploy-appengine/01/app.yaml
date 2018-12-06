@@ -1,0 +1,8 @@
+# project ID created in the SDK
+# application: new-test-go-deployment
+runtime: go
+api_version: go1
+
+handlers:
+- url: /.*
+  script: _go_app
