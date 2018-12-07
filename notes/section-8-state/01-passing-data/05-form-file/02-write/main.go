@@ -2,13 +2,20 @@ package main
 
 import (
 	"fmt"
-	"io"
+	"html/template"
 	"io/ioutil"
 	"net/http"
+	"os"
+	"path/filepath"
 )
 
+var tpl *template.Template
+
+func init() {
+	tpl = template.Must(template.ParseGlob("templates/*"))
+}
+
 func main() {
-	// default route runs only one func
 	http.HandleFunc("/", foo)
 	http.Handle("/favicon.ico", http.NotFoundHandler())
 	http.ListenAndServe(":8080", nil)
@@ -17,8 +24,7 @@ func main() {
 func foo(w http.ResponseWriter, req *http.Request) {
 
 	var s string
-	// print request method
-	fmt.Println(req.Method)
+	// using the constant http.MethodPost is best practice rather than string "POST"
 	if req.Method == http.MethodPost {
 
 		// open
@@ -39,13 +45,22 @@ func foo(w http.ResponseWriter, req *http.Request) {
 			return
 		}
 		s = string(bs)
+
+		// store on server
+		dst, err := os.Create(filepath.Join("./user/", h.Filename))
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		defer dst.Close()
+
+		_, err = dst.Write(bs)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
 	}
 
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
-	io.WriteString(w, `
-	<form method="POST" enctype="multipart/form-data">
-	<input type="file" name="q">
-	<input type="submit">
-	</form>
-	<br>`+s)
+	tpl.ExecuteTemplate(w, "index.gohtml", s)
 }
