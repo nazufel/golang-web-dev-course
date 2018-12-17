@@ -9,7 +9,7 @@ import (
 // set tpl type
 var tpl *template.Template
 
-// init template parse glob of everythign in templates/*
+// init templates parse glob of everythign in templates/*
 func init() {
 	tpl = template.Must(template.ParseGlob("templates/*"))
 }
@@ -26,49 +26,52 @@ func main() {
 	http.HandleFunc("/contact", contact)
 
 	// start the server
-	http.ListenAndServe(":8080", nil)
+	err := http.ListenAndServe(":8080", nil)
+	if err != nil {
+		log.Fatalln(err)
+	}
 }
 
-// execute the index template
+// execute the index templates
 func index(w http.ResponseWriter, r *http.Request) {
 	err := tpl.ExecuteTemplate(w, "index.gohtml", nil)
 	if err != nil {
-		log.Fatalln("template didn't execute: ", err)
+		log.Fatalln("templates didn't execute: ", err)
 	}
 }
 
-// execute the about template
+// execute the about templates
 func about(w http.ResponseWriter, r *http.Request) {
 	err := tpl.ExecuteTemplate(w, "about.gohtml", nil)
 	if err != nil {
-		log.Fatalln("template didn't execute: ", err)
+		log.Fatalln("templates didn't execute: ", err)
 	}
 }
 
-// execute the applyProcess or apply template with mux logic based on request method: GET or POST
+// execute the applyProcess or apply templates with mux logic based on request method: GET or POST
 func apply(w http.ResponseWriter, r *http.Request) {
 
-	// use applyProcess template if request method is POST
+	// use applyProcess templates if request method is POST
 	if r.Method == http.MethodPost {
 		err := tpl.ExecuteTemplate(w, "applyProcess.gohtml", nil)
 		if err != nil {
-			log.Fatalln("template didn't execute: ", err)
+			log.Fatalln("templates didn't execute: ", err)
 		}
 		return
 	}
 
-	// use apply template if request method is GET
+	// use apply templates if request method is GET
 	err := tpl.ExecuteTemplate(w, "apply.gohtml", nil)
 	if err != nil {
-		log.Fatalln("template didn't execute: ", err)
+		log.Fatalln("templates didn't execute: ", err)
 	}
 }
 
-// execute the contact template
+// execute the contact templates
 func contact(w http.ResponseWriter, r *http.Request) {
 	err := tpl.ExecuteTemplate(w, "contact.gohtml", nil)
 	if err != nil {
-		log.Fatalln("template didn't execute: ", err)
+		log.Fatalln("templates didn't execute: ", err)
 	}
 }
 

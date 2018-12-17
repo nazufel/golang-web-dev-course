@@ -28,13 +28,13 @@ func foo(w http.ResponseWriter, r *http.Request) {
 	// parse the csv file and assign values to records var by passing the file to func prs()
 	records := prs("table.csv")
 
-	// parse the template file
+	// parse the templates file
 	tpl, err := template.ParseFiles("tpl.gohtml")
 	if err != nil {
 		log.Fatalln(err)
 	}
 
-	// execute the template
+	// execute the templates
 	err = tpl.Execute(w, records)
 	if err != nil {
 		log.Fatalln(err)

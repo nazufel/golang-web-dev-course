@@ -28,7 +28,7 @@ func dog(w http.ResponseWriter, req *http.Request) {
 
 /* Todd's question said nothing about having another func. I was not able to
 	execute the tempalte and serve the file with http.ServeFile. However, I disagree
-	with using http.ServeFile in a separate func. Let the template handle that as I have done.
+	with using http.ServeFile in a separate func. Let the templates handle that as I have done.
 	Leaving this commented out since I may need it later as the hands-on build on eachother.
 
 func chien(w http.ResponseWriter, req *http.Request) {

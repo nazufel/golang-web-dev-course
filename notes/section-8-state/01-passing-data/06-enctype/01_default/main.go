@@ -28,6 +28,7 @@ func foo(w http.ResponseWriter, req *http.Request) {
 
 	// make a slice of bytes that's the length of the content coming in
 	bs := make([]byte, req.ContentLength)
+	// all of the request body into the bs file
 	req.Body.Read(bs)
 	body := string(bs)
 

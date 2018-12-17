@@ -13,7 +13,7 @@ func init() {
 }
 
 func main() {
-	// pass value 42 into template
+	// pass value 42 into templates
 	err := tpl.ExecuteTemplate(os.Stdout, "tpl.gohtml", 42)
 	if err != nil {
 		log.Fatalln(err)
