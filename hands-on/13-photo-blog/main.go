@@ -19,8 +19,13 @@ func init() {
 }
 
 func main() {
+	// run the index route
 	http.HandleFunc("/", index)
+	// return 404 for favicon
 	http.Handle("/favicon.ico", http.NotFoundHandler())
+	// serving up the pictures directory
+	http.Handle("/public/", http.StripPrefix("/public", http.FileServer(http.Dir("./public"))))
+	// start the server
 	http.ListenAndServe(":8080", nil)
 
 }
